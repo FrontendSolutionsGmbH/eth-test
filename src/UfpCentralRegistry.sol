@@ -57,6 +57,10 @@ contract UfpSupplyChainDevice {
             oldOwnerAndHashes.push(currentOwnerAndHash);
         }
     }
+
+    function getHistory() public constant returns (OwnerAndHash[] ownerAndHashHistory){
+        return oldOwnerAndHashes;
+    }
 }
 
 contract UfpSupplyChainCompany {
