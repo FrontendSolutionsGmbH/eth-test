@@ -39,7 +39,7 @@ contract UfpCentralRegistry {
 contract UfpSupplyChainDevice {
     string hash;
     address owner;
-    
+
     function UfpSupplyChainDevice() public {
         owner = msg.sender;
     }
@@ -49,6 +49,17 @@ contract UfpSupplyChainDevice {
             owner = newOwner;
             hash = newHash;
         }
+    }
+
+}
+
+contract UfpSupplyChainCompany {
+    string name;
+    address owner;
+
+    function UfpSupplyChainCompany(string _name) public {
+        owner = msg.sender;
+        name = _name;
     }
 
 }
