@@ -37,20 +37,26 @@ contract UfpCentralRegistry {
 }
 
 contract UfpSupplyChainDevice {
-    string hash;
-    address owner;
 
-    function UfpSupplyChainDevice() public {
-        owner = msg.sender;
+   struct OwnerAndHash {
+        string hash;
+        address owner;
+    }
+
+    OwnerAndHash[] oldOwnerAndHashes;
+    OwnerAndHash currentOwnerAndHash;
+
+    function UfpSupplyChainDevice(string newHash) public {
+        currentOwnerAndHash = OwnerAndHash({owner: msg.sender, hash: newHash});
+        oldOwnerAndHashes.push(currentOwnerAndHash);
     }
 
     function setNewOwner(address newOwner, string newHash) public {
-        if (msg.sender == owner) {
-            owner = newOwner;
-            hash = newHash;
+        if (msg.sender == currentOwnerAndHash.owner) {
+            currentOwnerAndHash = OwnerAndHash({owner: newOwner, hash: newHash});
+            oldOwnerAndHashes.push(currentOwnerAndHash);
         }
     }
-
 }
 
 contract UfpSupplyChainCompany {
