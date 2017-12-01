@@ -58,13 +58,13 @@ contract UfpSupplyChainDevice {
         }
     }
 
-    function getHistory(uint256 i) public constant returns (OwnerAndHash ownerAndHashHistory){
+    /*function getHistory(uint256 i) public constant returns (OwnerAndHash ownerAndHashHistory){
         return oldOwnerAndHashes[i];
     }
 
     function getHistoryCount() public constant returns (uint256 count){
         return oldOwnerAndHashes.length;
-    }
+    }*/
 
 }
 
