@@ -215,7 +215,7 @@ var API = {
 
                     return myDigitalTwin.methods.getHistoryLength().call({from: accounts[0]})
                         .then((historyLength) => {
-                            console.log('historyLength', historyLength)
+                            //  console.log('historyLength', historyLength)
 
                             var result = {
                                 digitalTwin: {

@@ -20,11 +20,23 @@
       }
     },
     {
+      "name": "Device",
+      "data": {
+        "Health-Check": "OK"
+      }
+    },
+    {
       "name": "Customer",
       "data": {
         "consumed lifetime during cycle": "20000h",
         "Price of blade after cycle": "6000 €",
         "Order Number(customer)": "1112747482829290220021"
+      }
+    },
+    {
+      "name": "Device",
+      "data": {
+        "Health-Check": "ERROR 506"
       }
     },
     {
@@ -43,6 +55,12 @@
       "data": {
         "consumed lifetime during cycle": "1000h",
         "Price of blade after cycle": "2000 €"
+      }
+    },
+    {
+      "name": "Device",
+      "data": {
+        "Health-Check": "ERROR 404"
       }
     },
     {

@@ -61,7 +61,8 @@ web3.eth.getAccounts().then((accounts) => {
             var registryId = param2 || lastUsedRegistry;
 
             api.doGetHistory(web3, accounts, registryId, serialId).then((result) => {
-                fs.writeFileSync('dist/out.txt', result)
+                fs.writeFileSync('dist/out.json', result)
+                console.log('dist/out.json written')
             })
 
             break;
