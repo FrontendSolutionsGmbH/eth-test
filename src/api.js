@@ -62,7 +62,7 @@ var API = {
             myRegistry.options.address = registryAddress;
             return myRegistry.methods.addDigitalTwin(digitalTwinSerialId, address).send({from: accounts[0]})
                 .then((result) => {
-                    console.log('registry addDigitalTwin', result)
+                    //console.log('registry addDigitalTwin', result.to)
                     return address
                 })
         })
@@ -159,10 +159,11 @@ var API = {
         console.log('history', registryAddress, digitalTwinSerialId)
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
-        return myRegistry.methods.getDigitalTwinAddressBySerialId(digitalTwinSerialId + '').call({from: accounts[0]})
-            .then((result) => {
-                console.log('getDigitalTwin', result)
+        myRegistry.methods.getDigitalTwinAddressBySerialId({digitalTwinSerialId: digitalTwinSerialId}).call({from: accounts[0]})
+            .then((address) => {
+                console.log('registry-entry-digital-twin', address)
             })
+
     }
 
 }

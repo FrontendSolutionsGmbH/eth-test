@@ -27,12 +27,12 @@ web3.eth.getAccounts().then((accounts) => {
             api.doAddCompany(web3, accounts, registryAccount, name, param3)
             break;
 
-        case 'adddevice':
+        case 'addtwin':
             var registryAccount = param1;
             var name = param2;
             var serialId = param3;
             var data = param4;
-            api.doAddDevice(web3, accounts, registryAccount, serialId, name, data)
+            api.doAddDigitalTwin(web3, accounts, registryAccount, serialId, name, data)
             break;
 
 
