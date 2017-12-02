@@ -30,7 +30,7 @@ web3.eth.getAccounts().then((accounts) => {
             break;
 
         case 'addcompany':
-            var name = param1 || 'company' + Math.floor(Math.random() * 1000);
+            var name = param1 || 'Factory';
             var registryAccount = param2 || lastUsedRegistry;
             api.doAddCompany(web3, accounts, registryAccount, name, param3)
             break;

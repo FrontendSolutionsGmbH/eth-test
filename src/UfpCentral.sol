@@ -1,6 +1,13 @@
 pragma solidity ^0.4.0;
 contract UfpCentralRegistry {
-    
+
+    string name;
+
+     function UfpCentralRegistry(string newName) public {
+        name = newName;
+     }
+
+
     mapping(string => address) companyNameToAddress;
 	mapping(address => string) companyAddressToName;
 
@@ -8,7 +15,15 @@ contract UfpCentralRegistry {
         companyNameToAddress[companyName] = companyAddress;
         companyAddressToName[companyAddress] = companyName;
     }
-    
+
+    function getRegistryName(int check) public constant returns (string registryName) {
+        if (check == 5) {
+            return name;
+        } else {
+            return 'no';
+        }
+    }
+
     function getCompanyAddressByName(string companyName) public constant returns (address companyAddress) {
         return companyNameToAddress[companyName];
     }

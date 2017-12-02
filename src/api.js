@@ -26,7 +26,7 @@ var API = {
 
     doAddCentralRegistry: (web3, accounts, param1, param2) => {
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
-        return deployContract(web3, accounts, myRegistry, ufpCentralRegistry.byteCode, 'registry added').then((address) => {
+        return deployContract(web3, accounts, myRegistry, ufpCentralRegistry.byteCode, 'registry added', ['ufp']).then((address) => {
             console.log(address)
             return address
         })
@@ -73,9 +73,17 @@ var API = {
     doGetCompanyFromRegistry: (web3, accounts, registryAddress, companyName) => {
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
-        myRegistry.methods.getCompanyAddressByName({companyName: companyName}).call({from: accounts[0]})
+
+        console.log('registry name request')
+        /*myRegistry.methods.getRegistryName(5).call({from: accounts[0]})
+            .then((registryName) => {
+                console.log('registry-name', registryName)
+            })
+*/
+
+        myRegistry.methods.getCompanyAddressByName(companyName).call({from: accounts[0]})
             .then((address) => {
-                console.log('company', address)
+                console.log('company', companyName, address)
             })
 
     },
@@ -143,7 +151,7 @@ var API = {
         // console.log('history', registryAddress, digitalTwinSerialId)
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
-        myRegistry.methods.getDigitalTwinAddressBySerialId({digitalTwinSerialId: digitalTwinSerialId}).call({from: accounts[0]})
+        myRegistry.methods.getDigitalTwinAddressBySerialId(digitalTwinSerialId).call({from: accounts[0]})
             .then((address) => {
                 console.log('twin', address)
 
