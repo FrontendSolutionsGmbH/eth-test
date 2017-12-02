@@ -60,6 +60,12 @@ web3.eth.getAccounts().then((accounts) => {
             var companyName = param1 || 'Factory';
             var registryId = param2 || lastUsedRegistry;
             api.doGetCompanyFromRegistry(web3, accounts, registryId, companyName)
+
+
+        case 'twin':
+            var serialId = param1 || '2017623221';
+            var registryId = param2 || lastUsedRegistry;
+            api.doGetTwinFromRegistry(web3, accounts, registryId, serialId)
     }
 
 });

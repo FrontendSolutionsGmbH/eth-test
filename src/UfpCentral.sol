@@ -90,6 +90,7 @@ contract UfpSupplyChainDigitalTwin {
         return currentOwnerAndHash;
     }
 
+/*
     function getHistory(uint256 i) public constant returns (OwnerAndHash ownerAndHashHistory){
         return oldOwnerAndHashes[i];
     }
@@ -97,6 +98,7 @@ contract UfpSupplyChainDigitalTwin {
     function getHistoryLength() public constant returns (uint256 count){
         return oldOwnerAndHashes.length;
     }
+*/
 
 }
 

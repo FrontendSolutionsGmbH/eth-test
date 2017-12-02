@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb48c590-8517-4b4a-a610-842311d44803" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/UfpCentral.sol" afterPath="$PROJECT_DIR$/src/UfpCentral.sol" />
       <change beforePath="$PROJECT_DIR$/src/api.js" afterPath="$PROJECT_DIR$/src/api.js" />
       <change beforePath="$PROJECT_DIR$/src/central.js" afterPath="$PROJECT_DIR$/src/central.js" />
-      <change beforePath="$PROJECT_DIR$/src/siemens.json" afterPath="$PROJECT_DIR$/src/siemens.json" />
     </list>
     <ignored path="eth-test.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="central.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="central.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/central.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="49" column="28" lean-forward="true" selection-start-line="49" selection-start-column="28" selection-end-line="49" selection-end-column="28" />
+            <state relative-caret-position="371">
+              <caret line="67" column="37" lean-forward="false" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -46,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UfpCentral.sol" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UfpCentral.sol" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/UfpCentral.sol">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="18" column="84" lean-forward="false" selection-start-line="18" selection-start-column="72" selection-end-line="18" selection-end-column="84" />
+            <state relative-caret-position="196">
+              <caret line="80" column="20" lean-forward="false" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -59,8 +57,8 @@
       <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="157" column="0" lean-forward="true" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+            <state relative-caret-position="269">
+              <caret line="183" column="32" lean-forward="false" selection-start-line="183" selection-start-column="32" selection-end-line="183" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -72,9 +70,10 @@
     <findStrings>
       <find>addCompany</find>
       <find>addDigitalTwin</find>
-      <find>Prife</find>
-      <find>Id</find>
       <find>doAddCentra</find>
+      <find>Id</find>
+      <find>c</find>
+      <find>Prife</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -89,8 +88,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/siemens.json" />
-        <option value="$PROJECT_DIR$/src/central.js" />
         <option value="$PROJECT_DIR$/src/UfpCentral.sol" />
+        <option value="$PROJECT_DIR$/src/central.js" />
         <option value="$PROJECT_DIR$/src/api.js" />
       </list>
     </option>
@@ -314,12 +313,12 @@
       <option name="presentableId" value="Default" />
       <updated>1512237901911</updated>
       <workItem from="1512237903084" duration="161000" />
-      <workItem from="1512239604822" duration="4274000" />
+      <workItem from="1512239604822" duration="4678000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4435000" />
+    <option name="totallyTimeSpent" value="4839000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -346,7 +345,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31428573" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11319444" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.05486111" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -410,6 +409,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/central.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="67" column="37" lean-forward="false" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="183" column="32" lean-forward="false" selection-start-line="183" selection-start-column="32" selection-end-line="183" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/siemens.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -420,24 +435,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UfpCentral.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="18" column="84" lean-forward="false" selection-start-line="18" selection-start-column="72" selection-end-line="18" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="157" column="0" lean-forward="true" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/central.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="49" column="28" lean-forward="true" selection-start-line="49" selection-start-column="28" selection-end-line="49" selection-end-column="28" />
+        <state relative-caret-position="196">
+          <caret line="80" column="20" lean-forward="false" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="20" />
           <folding />
         </state>
       </provider>

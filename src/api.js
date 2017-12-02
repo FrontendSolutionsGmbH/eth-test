@@ -52,7 +52,7 @@ var API = {
 
     doAddDigitalTwin: (web3, accounts, registryAddress, digitalTwinSerialId, digitalTwinName, digitalTwinData) => {
         var myDigitalTwin = new web3.eth.Contract(ufpSupplyChainDigitalTwin.abi)
-        digitalTwinData = digitalTwinData || 'randomHash' + Math.floor(Math.random() * 10000);
+        digitalTwinData = (digitalTwinData || 'randomHash' + Math.floor(Math.random() * 10000)).toString();
         digitalTwinSerialId = digitalTwinSerialId || 'digitalTwin' + Math.floor(Math.random() * 10000);
         digitalTwinName = digitalTwinName || 'noname';
         return deployContract(web3, accounts, myDigitalTwin, ufpSupplyChainDigitalTwin.byteCode, 'digitalTwin (' + digitalTwinName + ') added', [digitalTwinSerialId, digitalTwinName, digitalTwinData]).then((address) => {
@@ -60,7 +60,7 @@ var API = {
             return address;
         }).then((address) => {
             var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
-            myRegistry.options.address = address;
+            myRegistry.options.address = registryAddress;
             return myRegistry.methods.addDigitalTwin(digitalTwinSerialId, address).send({from: accounts[0]})
                 .then((result) => {
                     console.log('registry added', result.status)
@@ -86,6 +86,25 @@ var API = {
                 console.log('company', companyName, address)
             })
 
+    },
+
+    doGetTwinFromRegistry: (web3, accounts, registryAddress, twinSerialId) => {
+        var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
+        myRegistry.options.address = registryAddress;
+        myRegistry.methods.getDigitalTwinAddressBySerialId(twinSerialId).call({from: accounts[0]})
+            .then((address) => {
+
+                console.log('twin', twinSerialId, address)
+
+                var myDigitalTwin = new web3.eth.Contract(ufpSupplyChainDigitalTwin.abi)
+                myDigitalTwin.options.address = address;
+
+                myDigitalTwin.methods.getName().call({from: accounts[0]})
+                    .then((name) => {
+                        console.log('name', name)
+                    })
+
+            })
     },
 
 
