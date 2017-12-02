@@ -139,8 +139,8 @@ var API = {
             return Promise.all(digitalTwins.map((digitalTwin) => {
                 return API.doAddDigitalTwin(web3, accounts, registryAccount, digitalTwin.serialId, digitalTwin.name, digitalTwin.data, companyNameAndAddresses[0].address).then((address) => {
                     return {
-                        serialId: digitalTwin.serialId,
-                        name: digitalTwin.name,
+                        serialId: '' + digitalTwin.serialId,
+                        name: '' + digitalTwin.name,
                         data: digitalTwin.data,
                         address: address
                     }
