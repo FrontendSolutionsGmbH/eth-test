@@ -2,19 +2,19 @@ pragma solidity ^0.4.0;
 contract UfpCentralRegistry {
     
     mapping(string => address) companyNameToAddress;
-	mapping(address => string) companyAddressToId;
+	mapping(address => string) companyAddressToName;
 
     function addCompany(string companyName, address companyAddress) public {
         companyNameToAddress[companyName] = companyAddress;
-        companyAddressToId[companyAddress] = companyName;
+        companyAddressToName[companyAddress] = companyName;
     }
     
-    function getCompanyAddressById(string companyName) public constant returns (address companyAddress) {
+    function getCompanyAddressByName(string companyName) public constant returns (address companyAddress) {
         return companyNameToAddress[companyName];
     }
 
     function getCompanyNameByAddress(address companyAddress) public constant returns (string companyName) {
-        return companyAddressToId[companyAddress];
+        return companyAddressToName[companyAddress];
     }
 
     mapping(string => address) digitalTwinSerialIdToAddress;
@@ -63,13 +63,25 @@ contract UfpSupplyChainDigitalTwin {
         }
     }
 
-    /*function getHistory(uint256 i) public constant returns (OwnerAndHash ownerAndHashHistory){
+    function getName() public constant returns (string twinName) {
+        return name;
+    }
+
+     function getSerialId() public constant returns (string twinSerialId) {
+        return name;
+    }
+
+    function getCurrentOwnerAndHash() public constant returns (OwnerAndHash ownerAndHash) {
+        return currentOwnerAndHash;
+    }
+
+    function getHistory(uint256 i) public constant returns (OwnerAndHash ownerAndHashHistory){
         return oldOwnerAndHashes[i];
     }
 
-    function getHistoryCount() public constant returns (uint256 count){
+    function getHistoryLength() public constant returns (uint256 count){
         return oldOwnerAndHashes.length;
-    }*/
+    }
 
 }
 
@@ -80,6 +92,14 @@ contract UfpSupplyChainCompany {
     function UfpSupplyChainCompany(string _name) public {
         owner = msg.sender;
         name = _name;
+    }
+
+     function getName() public constant returns (string twinName) {
+        return name;
+    }
+
+    function getOwner() public constant returns (address companyWwner) {
+        return owner;
     }
 
 }

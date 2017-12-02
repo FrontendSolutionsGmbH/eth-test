@@ -28,6 +28,7 @@ var API = {
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         return deployContract(web3, accounts, myRegistry, ufpCentralRegistry.byteCode, 'registry added').then((address) => {
             console.log(address)
+            return address
         })
     },
 
@@ -43,7 +44,7 @@ var API = {
             myRegistry.options.address = registryAddress;
             return myRegistry.methods.addCompany(companyName, address).send({from: accounts[0]})
                 .then((result) => {
-                    console.log('registry addCompany', result)
+                    console.log('registry added', result.status, companyName, address)
                     return address
                 })
         })
@@ -59,30 +60,26 @@ var API = {
             return address;
         }).then((address) => {
             var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
-            myRegistry.options.address = registryAddress;
+            myRegistry.options.address = address;
             return myRegistry.methods.addDigitalTwin(digitalTwinSerialId, address).send({from: accounts[0]})
                 .then((result) => {
-                    //console.log('registry addDigitalTwin', result.to)
+                    console.log('registry added', result.status)
                     return address
                 })
         })
     },
 
-    /*
-    doRegistryAddDigitalTwin: (web3, accounts, registryAddress, param1, param2) => {
-        var digitalTwinContractAddress = param1;
-        var registryAddress = param2;
+
+    doGetCompanyFromRegistry: (web3, accounts, registryAddress, companyName) => {
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
-
-        myRegistry.methods.addDigitalTwin('ERROR').send({from: accs[0]})
-            .then(function (receipt) {
-                console.log('contractMethod', receipt)
-            });
-
+        myRegistry.methods.getCompanyAddressByName({companyName: companyName}).call({from: accounts[0]})
+            .then((address) => {
+                console.log('company', address)
+            })
 
     },
-    */
+
 
     doDemo: (web3, accounts, registryAccount, filename) => {
         var definition = JSON.parse(fs.readFileSync(filename).toString());
@@ -125,19 +122,6 @@ var API = {
             return digitalTwinsWithAddress;
         })
 
-
-        //console.log(digitalTwinName, digitalTwinId, companyNames);
-
-        /*
-        api.doAddCompany(web3, accounts, 'Siemens', param1)
-        api.doAddCompany(web3, accounts, 'Factory', param1)
-        api.doAddCompany(web3, accounts, 'Customer', param1)
-        api.doAddCompany(web3, accounts, 'Repairshop', param1)
-
-        api.doAddDigitalTwin(web3, accounts, 'Blade 1', param1)
-        api.doAddDigitalTwin(web3, accounts, 'Blade 2', param1)
-        api.doAddDigitalTwin(web3, accounts, 'Blade 3', param1)*/
-
     },
 
     fillHistory: (web3, accounts, digitalTwinsWithAddress, stations, companyNameAndAddresses) => {
@@ -156,12 +140,27 @@ var API = {
 
     doGetHistory: (web3, accounts, registryAddress, digitalTwinSerialId) => {
 
-        console.log('history', registryAddress, digitalTwinSerialId)
+        // console.log('history', registryAddress, digitalTwinSerialId)
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
         myRegistry.methods.getDigitalTwinAddressBySerialId({digitalTwinSerialId: digitalTwinSerialId}).call({from: accounts[0]})
             .then((address) => {
-                console.log('registry-entry-digital-twin', address)
+                console.log('twin', address)
+
+
+                if (address) {
+                    var myDigitalTwin = new web3.eth.Contract(ufpSupplyChainDigitalTwin.abi)
+                    myDigitalTwin.options.address = address;
+
+                    myDigitalTwin.methods.getHistoryLength().call({from: accounts[0]})
+                        .then((historyLength) => {
+                            console.log('historyLength', historyLength)
+                        })
+                } else {
+
+                }
+
+
             })
 
     }
