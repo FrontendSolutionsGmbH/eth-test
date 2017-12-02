@@ -1,19 +1,19 @@
 pragma solidity ^0.4.0;
 contract UfpCentralRegistry {
     
-    mapping(string => address) companyIdToAddress;
+    mapping(string => address) companyNameToAddress;
 	mapping(address => string) companyAddressToId;
 
-    function addCompany(string companyId, address companyAddress) public {
-        companyIdToAddress[companyId] = companyAddress;
-        companyAddressToId[companyAddress] = companyId;
+    function addCompany(string companyName, address companyAddress) public {
+        companyNameToAddress[companyName] = companyAddress;
+        companyAddressToId[companyAddress] = companyName;
     }
     
-    function getCompanyAddressById(string companyId) public constant returns (address companyAddress) {
-        return companyIdToAddress[companyId];
+    function getCompanyAddressById(string companyName) public constant returns (address companyAddress) {
+        return companyNameToAddress[companyName];
     }
 
-    function getCompanyIdByAddress(address companyAddress) public constant returns (string companyId) {
+    function getCompanyNameByAddress(address companyAddress) public constant returns (string companyName) {
         return companyAddressToId[companyAddress];
     }
 
@@ -39,6 +39,8 @@ contract UfpCentralRegistry {
 contract UfpSupplyChainDigitalTwin {
 
     string serialId;
+    string name;
+
    struct OwnerAndHash {
         string hash;
         address owner;
@@ -47,9 +49,10 @@ contract UfpSupplyChainDigitalTwin {
     OwnerAndHash[] oldOwnerAndHashes;
     OwnerAndHash currentOwnerAndHash;
 
-    function UfpSupplyChainDigitalTwin(string newSerialId, string newHash) public {
+    function UfpSupplyChainDigitalTwin(string newSerialId, string newName, string newHash) public {
         currentOwnerAndHash = OwnerAndHash({owner: msg.sender, hash: newHash});
         serialId = newSerialId;
+        name = newName;
         oldOwnerAndHashes.push(currentOwnerAndHash);
     }
 

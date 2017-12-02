@@ -20,7 +20,7 @@
       }
     },
     {
-      "name": "Customer Turbine",
+      "name": "Customer",
       "data": {
         "consumed lifetime during cycle": "20000h",
         "Prife of blade after cycle": "6000 €",
@@ -39,7 +39,7 @@
       }
     },
     {
-      "name": "Customer Turbine",
+      "name": "Customer",
       "data": {
         "consumed lifetime during cycle": "1000h",
         "Prife of blade after cycle": "2000 €"
@@ -57,7 +57,7 @@
       }
     },
     {
-      "name": "Use Part Ware House",
+      "name": "UsedPart Ware House",
       "data": {
         "consumed lifetime during cycle": "1000h",
         "Prife of blade after cycle": "2000 €"
