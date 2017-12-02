@@ -85,7 +85,7 @@ web3.eth.getAccounts().then((accounts) => {
         case 'addhistory':
             var serialId = param1
             var companyAddress = param2;
-            var data = param3 || '{scrap: true, likeit: true}'
+            var data = param3 || '{"scrap": "true", "likeit": "true"}'
             var registryAddress = param4 || lastUsedRegistry;
 
             api.addHistoryEntry(web3, accounts, registryAddress, serialId, companyAddress, data)

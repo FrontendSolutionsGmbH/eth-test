@@ -205,7 +205,7 @@ var API = {
         API.doGetTwinFromRegistry(web3, accounts, registryAddress, digitalTwinSerialId).then((address) => {
             var myDigitalTwin = new web3.eth.Contract(ufpSupplyChainDigitalTwin.abi)
             myDigitalTwin.options.address = address;
-            return myDigitalTwin.methods.setNewOwner(companyAddress, JSON.stringify(data)).send({
+            return myDigitalTwin.methods.setNewOwner(companyAddress, JSON.stringify(JSON.parse(data))).send({
                 from: accounts[0],
                 gas: 3000000
             }).then((result) => {
