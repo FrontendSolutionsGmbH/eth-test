@@ -64,18 +64,18 @@ contract UfpSupplyChainDigitalTwin {
     OwnerAndHash[] oldOwnerAndHashes;
     OwnerAndHash currentOwnerAndHash;
 
-    function UfpSupplyChainDigitalTwin(string newSerialId, string newName, string newHash) public {
-        currentOwnerAndHash = OwnerAndHash({owner: msg.sender, hash: newHash});
+    function UfpSupplyChainDigitalTwin(string newSerialId, string newName, string newHash, address newOwner) public {
+        currentOwnerAndHash = OwnerAndHash({owner: newOwner, hash: newHash});
         serialId = newSerialId;
         name = newName;
         oldOwnerAndHashes.push(currentOwnerAndHash);
     }
 
     function setNewOwner(address newOwner, string newHash) public {
-        if (msg.sender == currentOwnerAndHash.owner) {
+        //if (msg.sender == currentOwnerAndHash.owner) {
             currentOwnerAndHash = OwnerAndHash({owner: newOwner, hash: newHash});
             oldOwnerAndHashes.push(currentOwnerAndHash);
-        }
+        //}
     }
 
     function getName() public constant returns (string twinName) {
@@ -90,15 +90,19 @@ contract UfpSupplyChainDigitalTwin {
         return currentOwnerAndHash;
     }
 
-/*
-    function getHistory(uint256 i) public constant returns (OwnerAndHash ownerAndHashHistory){
-        return oldOwnerAndHashes[i];
+
+    function getHistoryOwner(uint256 i) public constant returns (address owner){
+        return oldOwnerAndHashes[i].owner;
     }
+
+     function getHistoryHash(uint256 i) public constant returns (string hash){
+            return oldOwnerAndHashes[i].hash;
+        }
 
     function getHistoryLength() public constant returns (uint256 count){
         return oldOwnerAndHashes.length;
     }
-*/
+
 
 }
 

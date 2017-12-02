@@ -9,6 +9,8 @@ const param1 = args[1]
 const param2 = args[2]
 const param3 = args[3]
 const param4 = args[4]
+const param5 = args[5]
+
 const Web3 = require('web3')
 const web3 = new Web3("http://localhost:8545")
 var lastUsedRegistry
@@ -36,11 +38,15 @@ web3.eth.getAccounts().then((accounts) => {
             break;
 
         case 'addtwin':
-            var name = param1 || 'twin' + Math.floor(Math.random() * 1000);
-            var serialId = param2 || '2017623221';
-            var data = param3 || '{"a":"b"}';
-            var registryAccount = param4 || lastUsedRegistry;
-            api.doAddDigitalTwin(web3, accounts, registryAccount, serialId, name, data)
+            if (!param1) {
+                throw new Exception('company needed')
+            }
+            var owner = param1
+            var name = param2 || 'twin' + Math.floor(Math.random() * 1000);
+            var serialId = param3 || '2017623221';
+            var data = param4 || '{"a":"b"}';
+            var registryAccount = param5 || lastUsedRegistry;
+            api.doAddDigitalTwin(web3, accounts, registryAccount, serialId, name, data, owner)
             break;
 
 
@@ -55,17 +61,19 @@ web3.eth.getAccounts().then((accounts) => {
             var registryId = param2 || lastUsedRegistry;
             api.doGetHistory(web3, accounts, registryId, serialId)
 
-
+            break;
         case 'company':
             var companyName = param1 || 'Factory';
             var registryId = param2 || lastUsedRegistry;
             api.doGetCompanyFromRegistry(web3, accounts, registryId, companyName)
 
+            break;
 
         case 'twin':
             var serialId = param1 || '2017623221';
             var registryId = param2 || lastUsedRegistry;
             api.doGetTwinFromRegistry(web3, accounts, registryId, serialId)
+            break;
     }
 
 });

@@ -50,12 +50,13 @@ var API = {
         })
     },
 
-    doAddDigitalTwin: (web3, accounts, registryAddress, digitalTwinSerialId, digitalTwinName, digitalTwinData) => {
+    doAddDigitalTwin: (web3, accounts, registryAddress, digitalTwinSerialId, digitalTwinName, digitalTwinData, owner) => {
         var myDigitalTwin = new web3.eth.Contract(ufpSupplyChainDigitalTwin.abi)
         digitalTwinData = (digitalTwinData || 'randomHash' + Math.floor(Math.random() * 10000)).toString();
         digitalTwinSerialId = digitalTwinSerialId || 'digitalTwin' + Math.floor(Math.random() * 10000);
         digitalTwinName = digitalTwinName || 'noname';
-        return deployContract(web3, accounts, myDigitalTwin, ufpSupplyChainDigitalTwin.byteCode, 'digitalTwin (' + digitalTwinName + ') added', [digitalTwinSerialId, digitalTwinName, digitalTwinData]).then((address) => {
+        var digitalTwinOwner = owner.toUpperCase()
+        return deployContract(web3, accounts, myDigitalTwin, ufpSupplyChainDigitalTwin.byteCode, 'digitalTwin (' + digitalTwinName + ') added', [digitalTwinSerialId, digitalTwinName, digitalTwinData, digitalTwinOwner]).then((address) => {
             console.log('digitalTwin', digitalTwinSerialId, digitalTwinName, digitalTwinData.substring(0, 10) + '...', 'deployed at', address)
             return address;
         }).then((address) => {
@@ -74,7 +75,6 @@ var API = {
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
 
-        console.log('registry name request')
         /*myRegistry.methods.getRegistryName(5).call({from: accounts[0]})
             .then((registryName) => {
                 console.log('registry-name', registryName)
@@ -131,16 +131,18 @@ var API = {
             return companyNameAndAddresses;
         })
 
-        var createTwins = Promise.all(digitalTwins.map((digitalTwin) => {
-            return API.doAddDigitalTwin(web3, accounts, registryAccount, digitalTwin.serialId, digitalTwin.name, digitalTwin.data).then((address) => {
-                return {
-                    serialId: digitalTwin.serialId,
-                    name: digitalTwin.name,
-                    data: digitalTwin.data,
-                    address: address
-                }
-            })
-        }))
+        var createTwins = createCompanies.then((companyNameAndAddresses) => {
+            Promise.all(digitalTwins.map((digitalTwin) => {
+                return API.doAddDigitalTwin(web3, accounts, registryAccount, digitalTwin.serialId, digitalTwin.name, digitalTwin.data, companyNameAndAddresses[0].address).then((address) => {
+                    return {
+                        serialId: digitalTwin.serialId,
+                        name: digitalTwin.name,
+                        data: digitalTwin.data,
+                        address: address
+                    }
+                })
+            }))
+        })
 
 
         Promise.all([createCompanies, createTwins]).then(([companyNameAndAddresses, digitalTwinsWithAddress]) => {
@@ -167,6 +169,7 @@ var API = {
 
     doGetHistory: (web3, accounts, registryAddress, digitalTwinSerialId) => {
 
+
         // console.log('history', registryAddress, digitalTwinSerialId)
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
@@ -174,17 +177,52 @@ var API = {
             .then((address) => {
                 console.log('twin', address)
 
-
-                if (address) {
+                if (address !== '0x0000000000000000000000000000000000000000') {
                     var myDigitalTwin = new web3.eth.Contract(ufpSupplyChainDigitalTwin.abi)
                     myDigitalTwin.options.address = address;
 
-                    myDigitalTwin.methods.getHistoryLength().call({from: accounts[0]})
+                    return myDigitalTwin.methods.getHistoryLength().call({from: accounts[0]})
                         .then((historyLength) => {
                             console.log('historyLength', historyLength)
+
+                            var result = {
+                                stations: new Array(historyLength)
+                            }
+
+                            var promisesToWaitFor = []
+
+                            for (var i = 0; i < historyLength; i++) {
+                                result.stations[i] = {name: '', owner: ''}
+                                var j = i;
+                                promisesToWaitFor.push(myDigitalTwin.methods.getHistoryOwner(j).call({from: accounts[0]}).then((entry) => {
+                                    console.log('owner', j, entry)
+                                    result.stations[j].owner = entry
+
+                                    return myRegistry.methods.getCompanyNameByAddress(entry).call({from: accounts[0]})
+                                        .then((companyName) => {
+                                            console.log('companyName', companyName, entry)
+                                            result.stations[j].name = companyName
+                                        })
+                                }))
+
+                                promisesToWaitFor.push(myDigitalTwin.methods.getHistoryHash(j).call({from: accounts[0]}).then((entry) => {
+                                    console.log('hash', j, entry)
+                                    result.stations[j].data = entry
+                                    return entry
+                                }))
+                            }
+
+
+                            return Promise.all(promisesToWaitFor).then((allResults) => {
+                                console.log('result', result)
+
+                                return allResults
+                            })
+
                         })
                 } else {
-
+                    console.log('not found')
+                    return null;
                 }
 
 
