@@ -205,7 +205,7 @@ var API = {
         // console.log('history', registryAddress, digitalTwinSerialId)
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
-        myRegistry.methods.getDigitalTwinAddressBySerialId(digitalTwinSerialId).call({from: accounts[0]})
+        return myRegistry.methods.getDigitalTwinAddressBySerialId(digitalTwinSerialId).call({from: accounts[0]})
             .then((address) => {
                 console.log('twin', address)
 
@@ -218,6 +218,10 @@ var API = {
                             console.log('historyLength', historyLength)
 
                             var result = {
+                                digitalTwin: {
+                                    name: '',
+                                    id: digitalTwinSerialId
+                                },
                                 stations: new Array(historyLength)
                             }
 
@@ -243,11 +247,14 @@ var API = {
                                 })(i)
                             }
 
+                            promisesToWaitFor.push(myDigitalTwin.methods.getName().call({from: accounts[0]}).then((entry) => {
+                                result.digitalTwin.name = entry
+                            }))
 
                             return Promise.all(promisesToWaitFor).then((allResults) => {
-                                console.log('result', result)
+                                //   console.log('result', result)
 
-                                return allResults
+                                return JSON.stringify(result)
                             })
 
                         })

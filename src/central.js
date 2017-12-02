@@ -59,7 +59,10 @@ web3.eth.getAccounts().then((accounts) => {
         case 'history':
             var serialId = param1 || '2017623221';
             var registryId = param2 || lastUsedRegistry;
-            api.doGetHistory(web3, accounts, registryId, serialId)
+
+            api.doGetHistory(web3, accounts, registryId, serialId).then((result) => {
+                fs.writeFileSync('dist/out.txt', result)
+            })
 
             break;
         case 'company':
