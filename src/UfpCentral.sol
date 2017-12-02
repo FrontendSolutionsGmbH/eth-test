@@ -36,8 +36,9 @@ contract UfpCentralRegistry {
 
 }
 
-contract UfpSupplyChainDevice {
+contract UfpSupplyChainDigitalTwin {
 
+    string serialId;
    struct OwnerAndHash {
         string hash;
         address owner;
@@ -46,8 +47,9 @@ contract UfpSupplyChainDevice {
     OwnerAndHash[] oldOwnerAndHashes;
     OwnerAndHash currentOwnerAndHash;
 
-    function UfpSupplyChainDevice(string newHash) public {
+    function UfpSupplyChainDigitalTwin(string newSerialId, string newHash) public {
         currentOwnerAndHash = OwnerAndHash({owner: msg.sender, hash: newHash});
+        serialId = newSerialId;
         oldOwnerAndHashes.push(currentOwnerAndHash);
     }
 

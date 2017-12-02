@@ -1,0 +1,75 @@
+{
+  "digitalTwin": {
+    "name": "Blade 1",
+    "id": "2017623221"
+  },
+  "stations": [
+    {
+      "name": "Factory",
+      "data": {
+        "(Remaining) Lifetime after manufacturing/ delivery": "1000h",
+        "Material Master": "5782828281",
+        "Technical description": "2017623_blade.pdf",
+        "Serial Number": "2017623221",
+        "Weight": "1200 kg",
+        "Manufaturing Reports": "report2017623_blade_2.0.pdf",
+        "Quality Reports": "qs_143234.pdf",
+        "Price of new Part": "12000 €",
+        "Order Number (Siemens)": "9812747482829290220021",
+        "HS Code (Customs Code)": "Code 2781 hs UFP"
+      }
+    },
+    {
+      "name": "Customer Turbine",
+      "data": {
+        "consumed lifetime during cycle": "20000h",
+        "Prife of blade after cycle": "6000 €",
+        "Order Number(customer)": "1112747482829290220021"
+      }
+    },
+    {
+      "name": "Repair Shop",
+      "data": {
+        "(Remaining) Lifetime after repair": "5000 h",
+        "Remaining operation cycle time": "500 h",
+        "Reair report": "repair_2017623_blade.pdf",
+        "Number of Repair Cycle": "2017623221",
+        "Price of repair": "1000 €",
+        "Price after repair (incl. Price of repair)": "4000 €"
+      }
+    },
+    {
+      "name": "Customer Turbine",
+      "data": {
+        "consumed lifetime during cycle": "1000h",
+        "Prife of blade after cycle": "2000 €"
+      }
+    },
+    {
+      "name": "Repair Shop",
+      "data": {
+        "(Remaining) Lifetime after repair": "3000 h",
+        "Remaining operation cycle time": "0 h",
+        "Reair report": "repair_2017924_blade.pdf",
+        "Number of Repair Cycle": "2017623221",
+        "Price of repair": "500 €",
+        "Price after repair (incl. Price of repair)": "2000 €"
+      }
+    },
+    {
+      "name": "Use Part Ware House",
+      "data": {
+        "consumed lifetime during cycle": "1000h",
+        "Prife of blade after cycle": "2000 €"
+      }
+    },
+    {
+      "name": "Scrap",
+      "data": {
+        "Prife of blade": "0 €",
+        "Scap Id": "59282737394583928",
+        "Scap Report": "scrap_59282737394583928.pdf"
+      }
+    }
+  ]
+}

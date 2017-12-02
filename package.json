@@ -11,7 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "build": "node src/bla.js",
-    "solc": "solcjs src/UfpSimpleHashes.sol --abi",
+    "solc": "cd src/ && solcjs UfpCentral.sol --abi --bin -o ../dist/",
     "geth": "geth --dev --rpc --rpcapi=personal,db,eth,net,web3 --rpccorsdomain='*' --rpcaddr=0.0.0.0"
   },
   "bin": {
