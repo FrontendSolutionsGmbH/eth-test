@@ -12,7 +12,9 @@ const param4 = args[4]
 const param5 = args[5]
 
 const Web3 = require('web3')
-const web3 = new Web3("http://demo-dev.froso.de:8545")
+//const web3 = new Web3("http://demo-dev.froso.de:8545")
+const web3 = new Web3("http://localhost:8545")
+
 var lastUsedRegistry
 
 if (fs.existsSync('dist/lastRegistry.txt')) {
@@ -78,6 +80,16 @@ web3.eth.getAccounts().then((accounts) => {
             var registryId = param2 || lastUsedRegistry;
             api.doGetTwinFromRegistry(web3, accounts, registryId, serialId)
             break;
+
+        case 'addhistory':
+            var serialId = param1
+            var companyAddress = param2;
+            var data = param3 || '{scrap: true, likeit: true}'
+            var registryAddress = param4 || lastUsedRegistry;
+
+            api.addHistoryEntry(web3, accounts, registryAddress, serialId, companyAddress, data)
+
+
     }
 
 });

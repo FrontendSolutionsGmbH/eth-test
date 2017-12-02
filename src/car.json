@@ -1,0 +1,51 @@
+{
+  "digitalTwin": {
+    "name": "Car",
+    "id": "XPF12312354"
+  },
+  "stations": [
+    {
+      "name": "Factory",
+      "data": {
+        "device_type": "car",
+        "serial_number": "XPF12312354",
+        "created_on": "2012-04-23T18:25:43.511Z"
+      }
+    },
+    {
+      "name": "Customer",
+      "data": {
+        "first_name": "Chris",
+        "last_name": "Cole",
+        "customer_id": "11290220021"
+      }
+    },
+    {
+      "name": "Car Sensor",
+      "data": {
+        "type": "car",
+        "type_id": "118821",
+        "chassis_number": "XPF12312354",
+        "indicator": "BN XS 123",
+        "mileage": "123.000"
+      }
+    },
+    {
+      "name": "Service station",
+      "data": {
+        "device_check_in": "2012-04-23T18:25:43.511Z",
+        "device_check_out": "2012-04-24T13:13:44.732Z",
+        "inspection": "true",
+        "postcode": "53220",
+        "street": "servicestationstreet 1"
+      }
+    },
+    {
+      "name": "Scrap",
+      "data": {
+        "scrap_execution_date": "2017-04-23T13:27:22.111Z",
+        "scrap_type": "car"
+      }
+    }
+  ]
+}

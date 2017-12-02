@@ -94,7 +94,7 @@ var API = {
     doGetTwinFromRegistry: (web3, accounts, registryAddress, twinSerialId) => {
         var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
         myRegistry.options.address = registryAddress;
-        myRegistry.methods.getDigitalTwinAddressBySerialId(twinSerialId).call({from: accounts[0]})
+        return myRegistry.methods.getDigitalTwinAddressBySerialId(twinSerialId).call({from: accounts[0]})
             .then((address) => {
 
                 console.log('twin', twinSerialId, address)
@@ -107,6 +107,7 @@ var API = {
                         console.log('name', name)
                     })
 
+                return address;
             })
     },
 
@@ -197,6 +198,22 @@ var API = {
 
 
         })
+    },
+
+    addHistoryEntry: (web3, accounts, registryAddress, digitalTwinSerialId, companyAddress, data) => {
+
+        API.doGetTwinFromRegistry(web3, accounts, registryAddress, digitalTwinSerialId).then((address) => {
+            var myDigitalTwin = new web3.eth.Contract(ufpSupplyChainDigitalTwin.abi)
+            myDigitalTwin.options.address = address;
+            return myDigitalTwin.methods.setNewOwner(companyAddress, JSON.stringify(data)).send({
+                from: accounts[0],
+                gas: 3000000
+            }).then((result) => {
+                console.log('newowner', result.status)
+            })
+        })
+
+
     },
 
     doGetHistory: (web3, accounts, registryAddress, digitalTwinSerialId) => {
