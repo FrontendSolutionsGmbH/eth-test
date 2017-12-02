@@ -258,7 +258,7 @@ var API = {
                                     }))
 
                                     promisesToWaitFor.push(myDigitalTwin.methods.getHistoryHash(j).call({from: accounts[0]}).then((entry) => {
-                                        result.stations[j].data = entry
+                                        result.stations[j].data = JSON.parse(entry)
                                         return entry
                                     }))
                                 })(i)
