@@ -12,7 +12,7 @@ const param4 = args[4]
 const param5 = args[5]
 
 const Web3 = require('web3')
-const web3 = new Web3("http://localhost:8545")
+const web3 = new Web3("http://demo-dev.froso.de:8545")
 var lastUsedRegistry
 
 if (fs.existsSync('dist/lastRegistry.txt')) {
