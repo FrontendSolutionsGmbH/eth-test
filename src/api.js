@@ -42,7 +42,7 @@ var API = {
         }).then((address) => {
             var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
             myRegistry.options.address = registryAddress;
-            return myRegistry.methods.addCompany(companyName, address).send({from: accounts[0]})
+            return myRegistry.methods.addCompany(companyName, address).send({from: accounts[0], gas: 3000000})
                 .then((result) => {
                     console.log('registry added', result.status, companyName, address)
                     return address
@@ -62,7 +62,10 @@ var API = {
         }).then((address) => {
             var myRegistry = new web3.eth.Contract(ufpCentralRegistry.abi)
             myRegistry.options.address = registryAddress;
-            return myRegistry.methods.addDigitalTwin(digitalTwinSerialId, address).send({from: accounts[0]})
+            return myRegistry.methods.addDigitalTwin(digitalTwinSerialId, address).send({
+                from: accounts[0],
+                gas: 3000000
+            })
                 .then((result) => {
                     console.log('registry added', result.status)
                     return address
@@ -132,7 +135,7 @@ var API = {
         })
 
         var createTwins = createCompanies.then((companyNameAndAddresses) => {
-            Promise.all(digitalTwins.map((digitalTwin) => {
+            return Promise.all(digitalTwins.map((digitalTwin) => {
                 return API.doAddDigitalTwin(web3, accounts, registryAccount, digitalTwin.serialId, digitalTwin.name, digitalTwin.data, companyNameAndAddresses[0].address).then((address) => {
                     return {
                         serialId: digitalTwin.serialId,
@@ -146,7 +149,6 @@ var API = {
 
 
         Promise.all([createCompanies, createTwins]).then(([companyNameAndAddresses, digitalTwinsWithAddress]) => {
-            //console.log(digitalTwinsWithAddress)
             API.fillHistory(web3, accounts, digitalTwinsWithAddress, stations.slice(1), companyNameAndAddresses)
             return digitalTwinsWithAddress;
         })
@@ -154,16 +156,46 @@ var API = {
     },
 
     fillHistory: (web3, accounts, digitalTwinsWithAddress, stations, companyNameAndAddresses) => {
-        digitalTwinsWithAddress.map((digitalTwinWithAddress) => {
+        digitalTwinsWithAddress.map((twin) => {
+
+            var executions = [];
+
+
             stations.map((station) => {
                 var companyNameAndAddress = companyNameAndAddresses.find((company) => {
                     return (company.name === station.name)
                 })
 
+                executions.push({station: station, companyNameAndAddress: companyNameAndAddress})
+            })
+
+
+            console.log('map worked', executions.length)
+            var execOwnerShipChange = function (executions) {
+
+                if (executions.length < 1) {
+                    return
+                }
+                var companyNameAndAddress = executions[0].companyNameAndAddress;
+                var station = executions[0].station;
 
                 console.log('adding station', station.name, JSON.stringify(station.data).substring(0, 10), '...',
                     companyNameAndAddress.address)
-            })
+
+                var myDigitalTwin = new web3.eth.Contract(ufpSupplyChainDigitalTwin.abi)
+                myDigitalTwin.options.address = twin.address;
+
+                myDigitalTwin.methods.setNewOwner(companyNameAndAddress.address, JSON.stringify(station.data)).send({
+                    from: accounts[0],
+                    gas: 3000000
+                })
+                    .then((result) => {
+                        execOwnerShipChange(executions.slice(1))
+                    })
+            }
+            execOwnerShipChange(executions)
+
+
         })
     },
 
@@ -192,24 +224,23 @@ var API = {
                             var promisesToWaitFor = []
 
                             for (var i = 0; i < historyLength; i++) {
-                                result.stations[i] = {name: '', owner: ''}
-                                var j = i;
-                                promisesToWaitFor.push(myDigitalTwin.methods.getHistoryOwner(j).call({from: accounts[0]}).then((entry) => {
-                                    console.log('owner', j, entry)
-                                    result.stations[j].owner = entry
+                                (function (j) {
+                                    result.stations[i] = {name: '', owner: ''}
+                                    var j = i;
+                                    promisesToWaitFor.push(myDigitalTwin.methods.getHistoryOwner(j).call({from: accounts[0]}).then((entry) => {
+                                        result.stations[j].owner = entry
 
-                                    return myRegistry.methods.getCompanyNameByAddress(entry).call({from: accounts[0]})
-                                        .then((companyName) => {
-                                            console.log('companyName', companyName, entry)
-                                            result.stations[j].name = companyName
-                                        })
-                                }))
+                                        return myRegistry.methods.getCompanyNameByAddress(entry).call({from: accounts[0]})
+                                            .then((companyName) => {
+                                                result.stations[j].name = companyName
+                                            })
+                                    }))
 
-                                promisesToWaitFor.push(myDigitalTwin.methods.getHistoryHash(j).call({from: accounts[0]}).then((entry) => {
-                                    console.log('hash', j, entry)
-                                    result.stations[j].data = entry
-                                    return entry
-                                }))
+                                    promisesToWaitFor.push(myDigitalTwin.methods.getHistoryHash(j).call({from: accounts[0]}).then((entry) => {
+                                        result.stations[j].data = entry
+                                        return entry
+                                    }))
+                                })(i)
                             }
 
 
